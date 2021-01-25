@@ -54,6 +54,14 @@ class Command(Cog):
                 await ctx.guild.unban(user)
                 await ctx.send(f'Unbanned {user.mention}')
                 return
+# error handling
+   @command(name="unban", aliases=["ub"], hidden=True)
+   @has_permissions(administrator = True)
+   async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Please pass in all requirements :rolling_eyes:.')
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("You dont have all the requirements :angry:")
                        
     @Cog.listener()
     async def on_ready(self):
